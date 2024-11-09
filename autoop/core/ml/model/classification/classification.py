@@ -27,3 +27,13 @@ class DecisionTreeClassification(Model):
     def predict(self, X: np.ndarray) -> np.ndarray:
         return self.model.predict(X)
 
+class RandomForestClassification(Model):
+    def __init__(self):
+        super().__init__(model_type="classification")
+        self.model = RandomForestClassifier()
+
+    def fit(self, X: np.ndarray, y: np.ndarray) -> None:
+        self.model.fit(X, y)
+
+    def predict(self, X: np.ndarray) -> np.ndarray:
+        return self.model.predict(X)
