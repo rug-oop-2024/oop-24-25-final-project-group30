@@ -63,7 +63,14 @@ if dataset_choice:
 
     # Select metrics
     st.header("Select Evaluation Metrics")
-    metric_choices = [m for m in METRICS if (task_type == "classification" and m in ["accuracy", "precision", "recall", "f1_score"]) or (task_type == "regression" and m in ["mean_squared_error", "mean_absolute_error", "r2_score"])]
+    if task_type == "classification":
+        metric_choices = [
+            m for m in METRICS if m in ["accuracy", "precision", "recall", "f1_score"]
+        ]
+    elif task_type == "regression":
+        metric_choices = [
+            m for m in METRICS if m in ["mean_squared_error", "mean_absolute_error", "r2_score"]
+        ]
     selected_metric_names = st.multiselect("Choose Metrics", metric_choices)
 
     # Get the metrics using get_metric
