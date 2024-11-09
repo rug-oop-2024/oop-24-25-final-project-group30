@@ -109,16 +109,39 @@ Pipeline(
             result = metric.evaluate(predictions, Y)
             self._metrics_results.append((metric, result))
         self._predictions = predictions
+        
+    def _evaluate(self):
+        """Evaluates both training and test metrics."""
+        self._train_metrics_results = []
+        self._test_metrics_results = []
+
+        # Evaluate on training data
+        train_X = self._compact_vectors(self._train_X)
+        train_predictions = self._model.predict(train_X)
+        for metric in self._metrics:
+            train_result = metric(train_predictions, self._train_y)
+            self._train_metrics_results.append((metric, train_result))
+
+        # Evaluate on test data
+        test_X = self._compact_vectors(self._test_X)
+        test_predictions = self._model.predict(test_X)
+        for metric in self._metrics:
+            test_result = metric(test_predictions, self._test_y)
+            self._test_metrics_results.append((metric, test_result))
+
+        # Store predictions
+        self._train_predictions = train_predictions
+        self._test_predictions = test_predictions
 
     def execute(self):
+        """Runs the pipeline and returns training and evaluation metrics."""
         self._preprocess_features()
         self._split_data()
         self._train()
         self._evaluate()
         return {
-            "metrics": self._metrics_results,
-            "predictions": self._predictions,
+            "train_metrics": self._train_metrics_results,
+            "test_metrics": self._test_metrics_results,
+            "train_predictions": self._train_predictions,
+            "test_predictions": self._test_predictions,
         }
-        
-
-    
