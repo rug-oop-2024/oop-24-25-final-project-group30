@@ -8,6 +8,7 @@ class Artifact(BaseModel):
     data: Optional[str] = Field(None, description="Base64-encoded artifact data.")
     metadata: Optional[Dict[str, str]] = Field(None, description="Metadata related to the artifact.")
     type: str = Field(..., description="Type of the artifact, e.g., model, dataset.")
+    #model_type: Optional[str] = None  
 
     def read(self) -> bytes:
         if not self.data:

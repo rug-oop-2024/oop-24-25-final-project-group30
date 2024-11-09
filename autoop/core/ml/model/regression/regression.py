@@ -5,7 +5,7 @@ from sklearn.ensemble import RandomForestRegressor
 import numpy as np
 
 class MultipleLinearRegression(Model):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(model_type="regression")
         self.model = LinearRegression()
 
@@ -17,7 +17,7 @@ class MultipleLinearRegression(Model):
 
 # Regression Model: Decision Tree Regressor
 class DecisionTreeRegression(Model):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(model_type="regression")
         self.model = DecisionTreeRegressor()
 
@@ -29,7 +29,7 @@ class DecisionTreeRegression(Model):
 
 # Regression Model: Random Forest Regressor
 class RandomForestRegression(Model):
-    def __init__(self):
+    def __init__(self, model_type) -> None:
         super().__init__(model_type="regression")
         self.model = RandomForestRegressor()
 
@@ -38,3 +38,4 @@ class RandomForestRegression(Model):
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         return self.model.predict(X)
+    
